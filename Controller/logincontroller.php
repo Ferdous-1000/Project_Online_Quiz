@@ -24,9 +24,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (mysqli_num_rows($result) == 1) {
             $_SESSION['username'] = $username;
             echo "<h2>Login successful! Welcome, $username</h2>";
-            // header("Location: ../view/dashboard.php"); // Optional redirect
+            header("Location: ../controller/DashboardController.php");
+exit();
         } else {
             echo "<h3 style='color:red;'>Invalid username or password</h3>";
+             echo "<h3><a href='../view/login.php'>Go Back</a></h3>";
         }
     } else {
         echo "<h3 style='color:red;'>Please enter username and password</h3>";

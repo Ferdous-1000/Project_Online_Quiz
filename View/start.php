@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Online Quiz</title>
-    <!-- Go up one level to reach the CSS folder -->
+
     <link rel="stylesheet" type="text/css" href="../CSS/style.css">
 </head>
 
@@ -20,8 +20,8 @@
 
     <table>
         <tr>
-            <td> <button class='logbtn'>Login</button></td>
-            <td> <button class='regbtn'>Register</button></td>
+            <td><a href="login.php"> <button class='logbtn'>Login</button></a></td>
+            <td><a href="signup.php"> <button class='regbtn'>Register</button></a></td>
         </tr>
     </table>
 

@@ -1,91 +1,58 @@
+<?php
+session_start();
+$old = $_SESSION['old'] ?? [];
+$errors = $_SESSION['errors'] ?? [];
+session_destroy(); 
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Sign Up - Online Quiz</title>
-    <style>
-        body {
-            background-color: #e0f7fa;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .signup-box {
-            background: white;
-            padding: 35px;
-            border-radius: 12px;
-            box-shadow: 0 0 12px rgba(0,0,0,0.15);
-            width: 350px;
-        }
-
-        .signup-box h2 {
-            text-align: center;
-            margin-bottom: 25px;
-            color: #333;
-        }
-
-        .signup-box input[type="text"],
-        .signup-box input[type="email"],
-        .signup-box input[type="password"],
-        .signup-box textarea,
-        .signup-box select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-        }
-
-        .signup-box input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            background-color: #00796b;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .signup-box input[type="submit"]:hover {
-            background-color: #00695c;
-        }
-
-        .signup-box p {
-            text-align: center;
-            font-size: 14px;
-            margin-top: 15px;
-        }
-    </style>
+     <link rel="stylesheet" type="text/css" href="../CSS/signup.css">
 </head>
-<body>
-
+<body  style="
+    background-image: url('../CSS/image/edu.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    ">
 <div class="signup-box">
     <h2>User Sign Up</h2>
     <form action="../controller/signupcontroller.php" method="post">
-        <input type="text" name="name" placeholder="Full Name" required>
 
-        <input type="email" name="email" placeholder="Email" required>
+        <label>Full Name:</label>
+        <input type="text" name="name" value="<?= htmlspecialchars($old['name'] ?? '') ?>">
+        <span class="error"><?= $errors['name'] ?? '' ?></span>
 
-        <textarea name="address" placeholder="Address" rows="3" required></textarea>
+        <label>Email:</label>
+        <input type="email" name="email" value="<?= htmlspecialchars($old['email'] ?? '') ?>">
+        <span class="error"><?= $errors['email'] ?? '' ?></span>
 
-        <select name="gender" required>
+        <label>Address:</label>
+        <textarea name="address"><?= htmlspecialchars($old['address'] ?? '') ?></textarea>
+        <span class="error"><?= $errors['address'] ?? '' ?></span>
+
+        <label>Gender:</label>
+        <select name="gender">
             <option value="">Select Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
+            <option value="Male" <?= ($old['gender'] ?? '') == 'Male' ? 'selected' : '' ?>>Male</option>
+            <option value="Female" <?= ($old['gender'] ?? '') == 'Female' ? 'selected' : '' ?>>Female</option>
+            <option value="Other" <?= ($old['gender'] ?? '') == 'Other' ? 'selected' : '' ?>>Other</option>
         </select>
+        <span class="error"><?= $errors['gender'] ?? '' ?></span>
 
-        <input type="text" name="username" placeholder="Username" required>
+        <label>Username:</label>
+        <input type="text" name="username" value="<?= htmlspecialchars($old['username'] ?? '') ?>">
+        <span class="error"><?= $errors['username'] ?? '' ?></span>
 
-        <input type="password" name="password" placeholder="Password" required>
+        <label>Password:</label>
+        <input type="password" name="password">
+        <span class="error"><?= $errors['password'] ?? '' ?></span>
 
         <input type="submit" value="Register">
     </form>
     <p><a href="login.php">Already have an account?</a></p>
 </div>
-
 </body>
 </html>
