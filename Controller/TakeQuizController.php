@@ -1,43 +1,39 @@
+
 <?php
-// controller/TakeQuizController.php
-
 session_start();
+require_once("../model/mydb.php");
 
-// Connect to database
-$conn = mysqli_connect("localhost", "root", "", "online_quiz");
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
+$model = new Model();
+$conn = $model->OpenConn();
 
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    if (isset($_GET['quiz_id'])) {
-        $quiz_id = intval($_GET['quiz_id']);
+$quizId = $_GET['quiz_id'] ?? null;
 
-        // Prepare statement to fetch quiz details securely
-        $stmt = mysqli_prepare($conn, "SELECT * FROM quizzes WHERE id = ?");
-        mysqli_stmt_bind_param($stmt, "i", $quiz_id);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $quizId = $_POST['quiz_id'];
+    $username = $_SESSION['username'];
+    $questions = $model->getQuestionsByQuizId($conn, $quizId);
+    $score = 0;
 
-        if (mysqli_num_rows($result) == 1) {
-            $quiz = mysqli_fetch_assoc($result);
+    foreach ($questions as $index => $row) {
+        $qid = $row['id'];
+        $correct = $row['correct_option'];
+        $selected = $_POST["answer_$qid"] ?? 0;
 
-            // Pass quiz data to view
-            require_once __DIR__ . '/../view/take_quiz_view.php';
-        } else {
-            echo "<h3 style='color:red;'>Quiz not found.</h3>";
-            echo "<h3><a href='../controller/DashboardController.php'>Go Back to Dashboard</a></h3>";
+        if ($selected == $correct) {
+            $score++;
         }
-
-        mysqli_stmt_close($stmt);
-    } else {
-        echo "<h3 style='color:red;'>No quiz selected.</h3>";
-        echo "<h3><a href='../controller/DashboardController.php'>Go Back to Dashboard</a></h3>";
     }
-} else {
-    // Redirect if accessed by POST or other methods
-    header("Location: ../controller/DashboardController.php");
-    exit();
-}
 
-mysqli_close($conn);
+    $model->saveQuizResult($conn, $username, $quizId, $score);
+    header("Location: ../view/quiz_result.php?score=$score&quiz_id=$quizId");
+    exit();
+} else {
+    if (!$quizId) {
+        echo "Invalid Quiz ID.";
+        exit();
+    }
+
+    $quiz = $model->getQuizById($conn, $quizId);
+    $questions = $model->getQuestionsByQuizId($conn, $quizId);
+    include("../view/take_quiz.php");
+}

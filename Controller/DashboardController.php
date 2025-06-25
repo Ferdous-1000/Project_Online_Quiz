@@ -27,7 +27,7 @@ if ($quizResult) {
     }
 }
 
+
 $conn->close();
 
-// Load dashboard view
 include '../view/dashboard.php';
