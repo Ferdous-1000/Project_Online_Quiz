@@ -2,58 +2,15 @@
 <html>
 <head>
     <title>Take Quiz</title>
-    <style>
-        body {
-            font-family: Arial;
-            background: #f4f4f4;
-            padding: 20px;
-        }
-        .quiz-box {
-            background: white;
-            padding: 20px;
-            max-width: 700px;
-            margin: auto;
-            border-radius: 8px;
-            box-shadow: 0 0 10px #ccc;
-            position: relative;
-            height: 80vh;
-            overflow-y: auto;
-        }
-        h2 {
-            color: #00796b;
-            margin: 0;
-        }
-        .question {
-            margin-bottom: 20px;
-        }
-        .options label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .submit-btn {
-            background-color: #00796b;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-        }
-        #timer {
-            position: sticky;
-            top: 0;
-            float: right;
-            font-size: 18px;
-            color: white;
-            background-color: #d32f2f;
-            padding: 8px 12px;
-            border-radius: 6px;
-            box-shadow: 0 0 5px #999;
-            z-index: 1000;
-            text-align: right;
-            margin-bottom: 10px;
-        }
-    </style>
+      <link rel="stylesheet" type="text/css" href="../CSS/take_quiz.css">
 </head>
-<body>
+<body  style="
+    background-image: url('../CSS/image/quiz.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    ">
+
 
 <div class="quiz-box">
     <div id="timer"></div>

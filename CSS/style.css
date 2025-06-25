@@ -1,3 +1,9 @@
+body {
+    background-image: url('../image/edu.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 h1 {
     color: blue;
     text-align: center;

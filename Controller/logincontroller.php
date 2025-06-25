@@ -1,36 +1,59 @@
 <?php
-
 session_start();
-$conn = mysqli_connect("localhost", "root", "", "online_quiz");
 
+// Connect to database
+$conn = mysqli_connect("localhost", "root", "", "online_quiz");
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
+// Initialize errors and old input arrays
+$errors = [];
+$old = [];
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'] ?? '';
-    $password = $_POST['password'] ?? '';
+    $username = trim($_POST['username'] ?? '');
+    $password = trim($_POST['password'] ?? '');
 
-    if ($username && $password) {
-        $sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
-        $result = mysqli_query($conn, $sql);
+    // Save old input to session
+    $old['username'] = $username;
 
-        if (mysqli_num_rows($result) == 1) {
-            $_SESSION['username'] = $username;
-            echo "<h2>Login successful! Welcome, $username</h2>";
-            header("Location: ../controller/DashboardController.php");
-exit();
-        } else {
-            echo "<h3 style='color:red;'>Invalid username or password</h3>";
-             echo "<h3><a href='../view/login.php'>Go Back</a></h3>";
-        }
+    // Validation
+    if ($username === '' && $password === '') {
+        $errors['general'] = "Please enter username and password.";
     } else {
-        echo "<h3 style='color:red;'>Please enter username and password</h3>";
+        if ($username === '') {
+            $errors['username'] = "Please enter username.";
+        }
+        if ($password === '') {
+            $errors['password'] = "Please enter password.";
+        }
     }
+
+    // If no validation errors, check credentials
+    if (empty($errors)) {
+        $sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param($stmt, "ss", $username, $password);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+
+        if (mysqli_num_rows($result) === 1) {
+            $_SESSION['username'] = $username;
+            header("Location: ../controller/DashboardController.php");
+            exit();
+        } else {
+            $errors['general'] = "Invalid username or password.";
+        }
+    }
+
+    // Save errors and old input and redirect back
+    $_SESSION['errors'] = $errors;
+    $_SESSION['old'] = $old;
+    header("Location: ../view/login.php");
+    exit();
 } else {
-    header("Location: ../model/login.php");
+    header("Location: ../view/login.php");
     exit();
 }
-
-mysqli_close($conn);
 ?>

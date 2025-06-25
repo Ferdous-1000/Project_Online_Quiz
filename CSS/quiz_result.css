@@ -1,0 +1,12 @@
+
+        body { font-family: Arial; 
+            text-align: center; 
+            background: #e8f5e9;
+             padding: 50px; }
+        .result { background:transparent
+            ; padding: 30px;
+              border-radius: 10px; 
+              display: inline-block; 
+              box-shadow: 0 0 10px #ccc;
+             }
+        h1 { color: #00796b; }

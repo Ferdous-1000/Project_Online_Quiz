@@ -2,49 +2,14 @@
 <html>
 <head>
     <title>All Quizzes</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #eef1f5;
-            padding: 20px;
-        }
-        .quiz-list {
-            background: white;
-            max-width: 850px;
-            margin: auto;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.15);
-        }
-        h2 {
-            color: #00796b;
-            text-align: center;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 25px;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 12px;
-            text-align: center;
-        }
-        th {
-            background-color: #00796b;
-            color: white;
-        }
-        .btn {
-            padding: 8px 14px;
-            background-color: #00796b;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="../CSS/quiz.css">
 </head>
-<body>
+<body style="
+    background-image: url('../CSS/image/res.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+">
     <div class="quiz-list">
         <h2>Available Quizzes</h2>
         <table>
@@ -71,8 +36,10 @@
                 <?php endwhile; ?>
             </tbody>
         </table>
-    </div>
-    <p style="text-align: center;"><a href="../controller/LogoutController.php" style="color: red; font-weight: bold;">Logout</a></p>
+            <p style="text-align: center;"> <a href="../controller/DashboardController.php">Go back to Dashboard</a></p>
+        <p style="text-align: center;"><a href="../controller/LogoutController.php" style="color: red; font-weight: bold;">Logout</a></p>
 
+    </div>
+    
 </body>
 </html>

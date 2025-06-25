@@ -6,13 +6,14 @@ $quizId = $_GET['quiz_id'] ?? '';
 <html>
 <head>
     <title>Quiz Result</title>
-    <style>
-        body { font-family: Arial; text-align: center; background: #e8f5e9; padding: 50px; }
-        .result { background: white; padding: 30px; border-radius: 10px; display: inline-block; box-shadow: 0 0 10px #ccc; }
-        h1 { color: #00796b; }
-    </style>
+  <link rel="stylesheet" type="text/css" href="../CSS/quiz_result.css">
 </head>
-<body>
+<body  style="
+    background-image: url('../CSS/image/res.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    ">
 <div class="result">
     <h1>Your Score: <?= htmlspecialchars($score) ?></h1>
     <p>Thank you for taking the quiz!</p>
