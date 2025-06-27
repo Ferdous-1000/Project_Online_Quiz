@@ -6,7 +6,7 @@ $quizId = $_GET['quiz_id'] ?? '';
 <html>
 <head>
     <title>Quiz Result</title>
-  <link rel="stylesheet" type="text/css" href="../CSS/quiz_result.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/style.css">
 </head>
 <body  style="
     background-image: url('../CSS/image/res.jpg');

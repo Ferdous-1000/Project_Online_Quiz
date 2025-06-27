@@ -16,11 +16,9 @@ $errors = [
     'password' => ''
 ];
 
-
 $inputs = [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
     foreach (['name', 'email', 'address', 'gender', 'username', 'password'] as $field) {
         $inputs[$field] = trim($_POST[$field] ?? '');
     }
@@ -69,9 +67,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             VALUES ('{$inputs['name']}', '{$inputs['email']}', '{$inputs['address']}', '{$inputs['gender']}', '{$inputs['username']}', '{$inputs['password']}')";
 
     if (mysqli_query($conn, $sql)) {
-        session_destroy(); 
-        echo "<h2 style='color: green;'>Signup Successful!</h2>";
-        echo "<h3><a href='../view/login.php'>Click Here to Login</a></h3>";
+        $_SESSION['signup_success'] = "Signup successful! Please login.";
+        header("Location: ../view/login.php");
+        exit();
     } else {
         echo "<p style='color:red;'>Database error: " . mysqli_error($conn) . "</p>";
     }
