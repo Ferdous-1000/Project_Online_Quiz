@@ -43,6 +43,7 @@ unset($_SESSION['errors'], $_SESSION['old'], $_SESSION['signup_success']);
     </form>
 
     <p>Don't have an account? <a href="signup.php">Register</a></p>
+    <p><a href="teacherlogin.php">If you are a teacher click here to login </a></p>
 </div>
 
 </body>
